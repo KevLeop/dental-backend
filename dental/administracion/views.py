@@ -1,4 +1,3 @@
-from django.views import generic
 from rest_framework.response import Response
 from .serializers import *
 from django.shortcuts import render
@@ -209,6 +208,8 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
 
   def get_queryset(self,id):
     return HClinicaModel.objects.filter(hclinicaId=id).first()
+    
+      
 
   def get(self,request,id):
     hclinica=self.get_queryset(id)
@@ -242,6 +243,22 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
         'success':False,
         'content':respuesta.errors,
         'message':"Data incorrecta"
+      })
+
+  def delete(self,request,id):
+    hclinica = self.get_queryset(id)
+    if (hclinica):
+      hclinica.delete()
+      return Response({
+      'success':True,
+      'content':None,
+      'message':'Historia clinica {} eliminada'.format(id) 
+      })
+    else:
+      return Response({
+        'success':False,
+        'content':None,
+        'message':'Error al eliminar HistoriaClinica id: {} no existe'.format(id)
       })
 
 
