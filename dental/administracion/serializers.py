@@ -63,3 +63,8 @@ class HClinicaSerializer(serializers.ModelSerializer):
   class Meta:
     model= HClinicaModel
     fields='__all__'
+
+class CitaSerializer(serializers.ModelSerializer):
+  class Meta:
+    model= CitaModel
+    fields='__all__'

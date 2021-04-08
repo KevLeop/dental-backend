@@ -1,3 +1,4 @@
+from django.db.models import query
 from rest_framework.response import Response
 from .serializers import *
 from django.shortcuts import render
@@ -261,7 +262,17 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
         'message':'Error al eliminar HistoriaClinica id: {} no existe'.format(id)
       })
 
+class CitasController(generics.ListCreateAPIView):
+  queryset = CitaModel.objects.all()
+  serializer_class = CitaSerializer
 
+  def get(self,request):
+    resultado = self.serializer_class(instance=self.get_queryset(),many=True)
+    return Response({
+      'success':True,
+      'content':resultado.data,
+      'message':None
+    })
       
   
 
