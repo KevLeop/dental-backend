@@ -273,7 +273,25 @@ class CitasController(generics.ListCreateAPIView):
       'content':resultado.data,
       'message':None
     })
-      
+
+  def post(self,request):
+    resultado = self.serializer_class(data=request.data)
+
+    if resultado.is_valid():
+      resultado.save()
+      return Response({
+        'success':True,
+        'content': resultado.data,
+        'message': 'Cita agregada exitosamente'
+      })
+    else:
+      return Response({
+        'success':False,
+        'content':resultado.errors,
+        'message': 'Error al crear Cita'
+      },status.HTTP_404_NOT_FOUND)
+  
+
   
 
 
