@@ -8,6 +8,7 @@ urlpatterns=[
   path('tratamientos/<int:id>',TratamientoController.as_view()),
   path('hclinicas', HClinicasController.as_view()),
   path('hclinicas/<int:id>',HClinicaController.as_view()),
-  path('citas', CitasController.as_view())
+  path('citas', CitasController.as_view()),
+  path('citas/<int:id>', CitaController.as_view())
 
 ]

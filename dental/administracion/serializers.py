@@ -65,6 +65,14 @@ class HClinicaSerializer(serializers.ModelSerializer):
     fields='__all__'
 
 class CitaSerializer(serializers.ModelSerializer):
+  def update(self):
+    self.instance.citaTitulo = self.validated_data.get('citaTitulo')
+    self.instance.citaFechaInicio = self.validated_data.get('citaFechaInicio')
+    self.instance.citaFechaFin = self.validated_data.get('citaFechaFin')
+    self.instance.citaEstado = self.validated_data.get('citaEstado')
+    self.instance.paciente = self.validated_data.get('paciente')
+    self.instance.save()
+    return self.data
   class Meta:
     model= CitaModel
     fields='__all__'

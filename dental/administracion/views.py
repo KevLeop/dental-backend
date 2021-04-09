@@ -210,8 +210,6 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
   def get_queryset(self,id):
     return HClinicaModel.objects.filter(hclinicaId=id).first()
     
-      
-
   def get(self,request,id):
     hclinica=self.get_queryset(id)
     resultado = self.serializer_class(instance=hclinica)
@@ -290,6 +288,66 @@ class CitasController(generics.ListCreateAPIView):
         'content':resultado.errors,
         'message': 'Error al crear Cita'
       },status.HTTP_404_NOT_FOUND)
+
+class CitaController(generics.RetrieveUpdateDestroyAPIView):
+  queryset = CitaModel.objects.all()
+  serializer_class=CitaSerializer
+
+  def get_queryset(self,id):
+    return CitaModel.objects.filter(citaId=id).first()
+  
+  def get(self,request,id):
+    cita= self.get_queryset(id)
+    resultado = self.serializer_class(instance=cita)
+    if resultado:
+      return Response({
+        'success':True,
+        'content':resultado.data,
+        'message':None
+      })
+    else:
+      return Response({
+        'success':False,
+        'content':None,
+        'message':'ID no existe'
+      },status.HTTP_404_NOT_FOUND)
+
+  def put(self,request,id):
+    cita = self.get_queryset(id)
+    respuesta = self.serializer_class(instance=cita,data=request.data)
+    if respuesta.is_valid():
+      resultado = respuesta.update()
+      return Response({
+        'success':True,
+        'content':resultado,
+        'message': "Cita editada exitosamente"
+      })
+    else:
+      return Response({
+        'success':False,
+        'content': respuesta.errors,
+        'message': "Error al editar cita"
+      },status.HTTP_400_BAD_REQUEST)
+
+
+  def delete(self,request,id):
+    cita = self.get_queryset(id)
+    if cita:
+      cita.delete()
+      return Response({
+        'success':True,
+        'content':None,
+        'message':'Cita {} eliminada con exito'.format(id)
+      })
+    else:
+      return Response({
+        'success':False,
+        'content': None,
+        'message': 'ID no existe!'
+      },status.HTTP_404_NOT_FOUND)
+
+      
+
   
 
   
