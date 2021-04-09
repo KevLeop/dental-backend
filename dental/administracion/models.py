@@ -1,4 +1,37 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+# AbstractBaseUser solo modificar, agregar campos al modelo Usuario
+class PersonalModel(AbstractBaseUser, PermissionsMixin):
+  TIPO_PERSONAL=[(1,"ADMIN"),(2,"DOCTOR"),(3,'PACIENTE')]
+  personalId = models.AutoField(
+    primary_key=True,
+    unique=True,
+    db_column='personal_id'
+  )
+
+  personalCorreo = models.EmailField(
+    db_column='personal_correo',
+    max_length=50,
+    verbose_name='Correo del usuario'
+  )
+
+  personalTipo = models.IntegerField(
+    db_column='personal_tipo',
+    choices=TIPO_PERSONAL,
+    verbose_name='Tipo del usuario'
+  )
+
+  personalNombre=models.CharField(
+    max_length=45,
+    null=False,
+    db_column='personal_nombre'
+  )
+  personalApellido=models.CharField(
+    max_length=45,
+    null=False,
+    db_column='personal_apellido'
+  )
+
 
 
 class TratamientoModel(models.Model):
@@ -97,7 +130,7 @@ class PacienteModel(models.Model):
     null=True,
     db_column='pac_gsang'
   )
-
+  # Clase 43-44
   pacienteImagen = models.URLField(
     db_column='pac_imagen',
     null=False
