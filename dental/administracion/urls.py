@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns=[
   path('pacientes', PacientesController.as_view()),
@@ -10,6 +11,7 @@ urlpatterns=[
   path('hclinicas/<int:id>',HClinicaController.as_view()),
   path('citas', CitasController.as_view()),
   path('citas/<int:id>', CitaController.as_view()),
-  path('registro',RegistrarPersonalController.as_view())
-
+  path('registro',RegistrarPersonalController.as_view()),
+  path('login', TokenObtainPairView.as_view()),
+  path('refresh-token',TokenRefreshView.as_view())
 ]

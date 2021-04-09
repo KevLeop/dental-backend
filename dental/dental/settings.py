@@ -134,3 +134,19 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 CORS_ALLOW_ALL_ORIGINS=True
+
+# PARA MODIFICAR CONFIGURACIONE DE DJANGO REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'personalId',
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=6),
+    'ALGORITHM':"HS256",
+    'AUTH_HEADER_TYPES':('Bearer',),
+}

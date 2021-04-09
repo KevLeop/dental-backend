@@ -27,6 +27,8 @@ class RegistrarPersonalController(generics.CreateAPIView):
       },status.HTTP_400_BAD_REQUEST)
 
 
+
+
 class PacientesController(generics.ListCreateAPIView):
   queryset=PacienteModel.objects.all()
   serializer_class = PacienteSerializer
