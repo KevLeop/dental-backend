@@ -4,6 +4,11 @@ from .serializers import *
 from django.shortcuts import render
 from rest_framework import generics, status
 from uuid import uuid4
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated,IsAuthenticatedOrReadOnly,IsAdminUser
+#isAdminUser => Usuario is_staff=true
+
 
 from .models import *
 
@@ -26,14 +31,18 @@ class RegistrarPersonalController(generics.CreateAPIView):
         'message':'Error al crear nuevo personal'
       },status.HTTP_400_BAD_REQUEST)
 
-
+class CustomPayloadController(TokenObtainPairView):
+  # Para modificar el Claim de nuestra token de acceso
+  permission_classes = [AllowAny]
+  serializer_class = CustomPayloadSerializer
 
 
 class PacientesController(generics.ListCreateAPIView):
   queryset=PacienteModel.objects.all()
   serializer_class = PacienteSerializer
-
+  permission_classes= [IsAuthenticatedOrReadOnly]
   def get(self, request):
+    
     resultado = self.serializer_class(instance=self.get_queryset(),many=True)
     return Response({
       'success':True,
@@ -44,6 +53,7 @@ class PacientesController(generics.ListCreateAPIView):
 
   def post(self, request):
     # request.files['campo'].size
+    
     archivo = request.FILES['pacienteImagen']
     # archivo.content_type, archivo.name, archivo.size
     print(archivo.content_type)

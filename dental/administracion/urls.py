@@ -13,5 +13,6 @@ urlpatterns=[
   path('citas/<int:id>', CitaController.as_view()),
   path('registro',RegistrarPersonalController.as_view()),
   path('login', TokenObtainPairView.as_view()),
-  path('refresh-token',TokenRefreshView.as_view())
-]
+  path('refresh-token',TokenRefreshView.as_view()),
+  path('login-custom', CustomPayloadController.as_view()),
+] 

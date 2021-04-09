@@ -1,5 +1,7 @@
 from .models import *
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 class RegistroSerializer(serializers.ModelSerializer):
   password = serializers.CharField(write_only=True)
@@ -25,6 +27,16 @@ class RegistroSerializer(serializers.ModelSerializer):
   class Meta:
     model = PersonalModel
     exclude = ['groups','user_permissions']
+
+
+class CustomPayloadSerializer(TokenObtainPairSerializer):
+  @classmethod
+  def get_token(cls,user):
+    token = super(CustomPayloadSerializer,cls).get_token(user)
+    token['personalTipo']=user.personalTipo
+    return token
+
+
 
 class PacienteSerializer(serializers.ModelSerializer):
   def update(self):
