@@ -72,7 +72,6 @@ class TratamientoModel(models.Model):
     help_text='ID del tratamiento',
     verbose_name='ID del tratamiento',
     db_column='trat_id',
-   
   )
   tratamientoNombre = models.CharField(
     max_length=45,
@@ -161,10 +160,11 @@ class PacienteModel(models.Model):
   )
   # Clase 43-44
   pacienteImagen = models.ImageField(
-    
     # pic = models.ImageField(upload_to='blah', default='path/to/my/default/image.jpg')
+    upload_to='pacientes',
+    # default = 'default-image.jpg',
     db_column='pac_imagen',
-    null=False
+    null=False,
   )
 
   pacienteEstado = models.BooleanField(

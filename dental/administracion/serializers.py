@@ -1,6 +1,31 @@
 from .models import *
 from rest_framework import serializers
 
+class RegistroSerializer(serializers.ModelSerializer):
+  password = serializers.CharField(write_only=True)
+  def save (self):
+    personalCorreo = self.validated_data.get('personalCorreo')
+    personalTipo = self.validated_data.get('personalTipo')
+    personalNombre = self.validated_data.get('personalNombre')
+    personalApellido = self.validated_data.get('personalApellido')
+    password = self.validated_data.get('password')
+    is_staff = False
+
+    nuevoPersonal = PersonalModel(
+      personalCorreo=personalCorreo,
+      personalTipo=personalTipo,
+      personalNombre=personalNombre,
+      personalApellido=personalApellido,
+      is_staff = is_staff
+    )
+    nuevoPersonal.set_password(password)
+    nuevoPersonal.save()
+    return nuevoPersonal
+
+  class Meta:
+    model = PersonalModel
+    exclude = ['groups','user_permissions']
+
 class PacienteSerializer(serializers.ModelSerializer):
   def update(self):
     self.instance.pacienteNombre = self.validated_data.get('pacienteNombre')
@@ -48,6 +73,7 @@ class TratamientoSerializer(serializers.ModelSerializer):
 
 class HClinicaSerializer(serializers.ModelSerializer):
   # paciente = PacienteSerializer()
+  # tratamiento = TratamientoSerializer()
   def update(self):
     self.instance.hclinicaFecha = self.validated_data.get('hclinicaFecha')
     self.instance.hclinicaDiagnostico = self.validated_data.get('hclinicaDiagnostico')

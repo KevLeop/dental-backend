@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,3 +132,5 @@ AUTH_USER_MODEL = 'administracion.PersonalModel'
 MEDIA_URL = '/media/'
 # para mostrar el archivo multimedia mediante una URL
 MEDIA_ROOT = BASE_DIR /'media'
+
+CORS_ALLOW_ALL_ORIGINS=True

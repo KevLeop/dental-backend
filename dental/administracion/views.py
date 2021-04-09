@@ -3,8 +3,29 @@ from rest_framework.response import Response
 from .serializers import *
 from django.shortcuts import render
 from rest_framework import generics, status
+from uuid import uuid4
 
 from .models import *
+
+class RegistrarPersonalController(generics.CreateAPIView):
+  serializer_class=RegistroSerializer
+
+  def post(self,request):
+    nuevoPersonal = self.serializer_class(data=request.data)
+    if nuevoPersonal.is_valid():
+      nuevoPersonal.save()
+      return Response({
+        'success':True,
+        'content': nuevoPersonal.data,
+        'message':'Personal creado exitosamente'
+      },status.HTTP_201_CREATED)
+    else:
+      return Response({
+        'success':False,
+        'content': nuevoPersonal.errors,
+        'message':'Error al crear nuevo personal'
+      },status.HTTP_400_BAD_REQUEST)
+
 
 class PacientesController(generics.ListCreateAPIView):
   queryset=PacienteModel.objects.all()
@@ -21,7 +42,13 @@ class PacientesController(generics.ListCreateAPIView):
 
   def post(self, request):
     # request.files['campo'].size
+    archivo = request.FILES['pacienteImagen']
+    # archivo.content_type, archivo.name, archivo.size
+    print(archivo.content_type)
+    print(archivo.name)
+    request.FILES['pacienteImagen'].name = str(uuid4()) +"_"+ request.FILES['pacienteImagen'].name
     resultado = self.serializer_class(data=request.data)
+    
     if resultado.is_valid():
       resultado.save()
       return Response({
