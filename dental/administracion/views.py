@@ -20,6 +20,7 @@ class PacientesController(generics.ListCreateAPIView):
 
 
   def post(self, request):
+    # request.files['campo'].size
     resultado = self.serializer_class(data=request.data)
     if resultado.is_valid():
       resultado.save()

@@ -126,3 +126,8 @@ USE_TZ =False
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'administracion.PersonalModel'
+
+# para indicar donde se guardarán los archivos pasados por el cliente (FileFields, ImageFields)
+MEDIA_URL = '/media/'
+# para mostrar el archivo multimedia mediante una URL
+MEDIA_ROOT = BASE_DIR /'media'
