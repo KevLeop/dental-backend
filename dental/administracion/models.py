@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 # AbstractBaseUser solo modificar, agregar campos al modelo Usuario
+from .authmanager import UsuarioManager
+
 class PersonalModel(AbstractBaseUser, PermissionsMixin):
   TIPO_PERSONAL=[(1,"ADMIN"),(2,"DOCTOR"),(3,'PACIENTE')]
   personalId = models.AutoField(
@@ -12,7 +14,8 @@ class PersonalModel(AbstractBaseUser, PermissionsMixin):
   personalCorreo = models.EmailField(
     db_column='personal_correo',
     max_length=50,
-    verbose_name='Correo del usuario'
+    verbose_name='Correo del usuario',
+    unique=True
   )
 
   personalTipo = models.IntegerField(
@@ -24,15 +27,41 @@ class PersonalModel(AbstractBaseUser, PermissionsMixin):
   personalNombre=models.CharField(
     max_length=45,
     null=False,
-    db_column='personal_nombre'
+    db_column='personal_nombre',
+    verbose_name='Nombre del Personal',
   )
   personalApellido=models.CharField(
     max_length=45,
     null=False,
-    db_column='personal_apellido'
+    db_column='personal_apellido',
+    verbose_name='Apellido del Personal',
   )
 
+  password = models.TextField(
+    db_column='personal_password',
+    verbose_name='Contraseña del usuario',
+  )
 
+  is_active = models.BooleanField(
+    default=True
+  )
+
+  is_staff = models.BooleanField(
+    default=False
+  )
+  # asignamos el comportamiento con el modelo
+  objects = UsuarioManager()
+
+  # ahora definimos que columna será la encagada dle login
+  #esto ahce que esa columna sea unica y null=false
+  USERNAME_FIELD = 'personalCorreo'
+  # para solicitar los campos al momento de crear superusuario por consola
+  REQUIRED_FIELDS = ['personalNombre', 'personalApellido', 'personalTipo']
+
+  class Meta:
+    db_table='t_personal'
+    verbose_name = 'personal'
+    verbose_name_plural = 'personales'
 
 class TratamientoModel(models.Model):
   tratamientoId = models.AutoField(
@@ -131,7 +160,9 @@ class PacienteModel(models.Model):
     db_column='pac_gsang'
   )
   # Clase 43-44
-  pacienteImagen = models.URLField(
+  pacienteImagen = models.ImageField(
+    
+    # pic = models.ImageField(upload_to='blah', default='path/to/my/default/image.jpg')
     db_column='pac_imagen',
     null=False
   )
