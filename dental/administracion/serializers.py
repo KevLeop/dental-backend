@@ -90,7 +90,6 @@ class HClinicaSerializer(serializers.ModelSerializer):
     self.instance.hclinicaFecha = self.validated_data.get('hclinicaFecha')
     self.instance.hclinicaDiagnostico = self.validated_data.get('hclinicaDiagnostico')
     self.instance.hclinicaProblema = self.validated_data.get('hclinicaProblema')
-    self.instance.hclinicaDiagnostico = self.validated_data.get('hclinicaDiagnostico')
     self.instance.hclinicaPrecio = self.validated_data.get('hclinicaPrecio')
     self.instance.hclinicaPagado = self.validated_data.get('hclinicaPagado')
     self.instance.paciente = self.validated_data.get('paciente')

@@ -323,6 +323,28 @@ class PacienteHClinicasController(generics.ListAPIView):
       })
 
 
+class HClinicasSinPagarController(generics.ListAPIView):
+  queryset=HClinicaModel.objects.all()
+  serializer_class=HClinicaSerializer
+  def get (self, request):
+    hclinicas = HClinicaModel.objects.filter(hclinicaPagado=False)
+    if hclinicas:
+      resultado= self.serializer_class(instance=hclinicas, many=True)
+      return Response ({
+        'success':True,
+        'content': resultado.data,
+        'message': "Consulta exitosa"
+      })
+    else:
+      return Response({
+        'success':False,
+        'content':None,
+        'message': 'Error!'
+      },status.HTTP_400_BAD_REQUEST)
+
+
+
+  
 
 
 class CitasController(generics.ListCreateAPIView):
