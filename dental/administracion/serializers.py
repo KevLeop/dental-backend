@@ -102,6 +102,12 @@ class HClinicaSerializer(serializers.ModelSerializer):
     model= HClinicaModel
     fields='__all__'
 
+class PacienteHClinicasSerializer(serializers.ModelSerializer):
+  hClinicas = HClinicaSerializer(source = 'hcPaciente', many=True )
+  class Meta:
+    model = PacienteModel
+    fields = ["pacienteDni","hClinicas"]
+
 class CitaSerializer(serializers.ModelSerializer):
   def update(self):
     self.instance.citaTitulo = self.validated_data.get('citaTitulo')

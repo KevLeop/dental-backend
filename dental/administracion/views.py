@@ -40,7 +40,7 @@ class CustomPayloadController(TokenObtainPairView):
 class PacientesController(generics.ListCreateAPIView):
   queryset=PacienteModel.objects.all()
   serializer_class = PacienteSerializer
-  permission_classes= [IsAuthenticatedOrReadOnly]
+  permission_classes= [IsAuthenticated]
   def get(self, request):
     
     resultado = self.serializer_class(instance=self.get_queryset(),many=True)
@@ -49,8 +49,6 @@ class PacientesController(generics.ListCreateAPIView):
       'content': resultado.data,
       'message':None
     })
-
-
   def post(self, request):
     # request.files['campo'].size
     
@@ -78,7 +76,7 @@ class PacientesController(generics.ListCreateAPIView):
 class PacienteController(generics.RetrieveDestroyAPIView):
   queryset = PacienteModel.objects.all()
   serializer_class = PacienteSerializer
-
+  
   def get_queryset(self,dni):
     return PacienteModel.objects.filter(pacienteDni=dni).first()
 
@@ -284,7 +282,7 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
         'message':"Data incorrecta"
       })
 
-  def delete(self,request,id):
+  def delete(self,id):
     hclinica = self.get_queryset(id)
     if (hclinica):
       hclinica.delete()
@@ -299,6 +297,33 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
         'content':None,
         'message':'Error al eliminar HistoriaClinica id: {} no existe'.format(id)
       })
+
+
+class PacienteHClinicasController(generics.ListAPIView):
+  queryset =  PacienteModel.objects.all()
+  serializer_class = PacienteHClinicasSerializer
+  def get_queryset(self,dni):
+    return PacienteModel.objects.filter(pacienteDni=dni).first()
+  
+  def get(self,request,dni):
+    paciente = self.get_queryset(dni)
+    print(dni)
+    resultado = self.serializer_class(instance=paciente)
+    if paciente:
+      return Response({
+        'success':True,
+        'content':resultado.data,
+        'message':None
+      })
+    else:
+      return Response({
+        'success':False,
+        'content':None,
+        'message': 'DNI {} de paciente no existe'.format(dni)
+      })
+
+
+
 
 class CitasController(generics.ListCreateAPIView):
   queryset = CitaModel.objects.all()
