@@ -82,6 +82,11 @@ class TratamientoSerializer(serializers.ModelSerializer):
     model = TratamientoModel
     fields= '__all__'
 
+class HClinicaSinPagar(serializers.ModelSerializer):
+  
+  class Meta:
+    model = HClinicaModel
+    fields = '__all__'
 
 class HClinicaSerializer(serializers.ModelSerializer):
   # paciente = PacienteSerializer()
