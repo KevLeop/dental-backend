@@ -164,7 +164,7 @@ class PacienteModel(models.Model):
     upload_to='pacientes',
     # default = 'default-image.jpg',
     db_column='pac_imagen',
-    null=False,
+    null=True,
   )
 
   pacienteEstado = models.BooleanField(
