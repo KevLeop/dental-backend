@@ -24,7 +24,7 @@ class RegistrarPersonalController(generics.CreateAPIView):
         'message':'Personal creado exitosamente'
       },status.HTTP_201_CREATED)
     else:
-      return Response({
+      return Response({ 
         'success':False,
         'content': nuevoPersonal.errors,
         'message':'Error al crear nuevo personal'
@@ -53,13 +53,14 @@ class PacientesController(generics.ListCreateAPIView):
     
     archivo = request.FILES['pacienteImagen']
     # archivo.content_type, archivo.name, archivo.size
-    print(archivo.content_type)
+    print("FILLLLES")
+    print(request.FILES)
     print(archivo.name)
     request.FILES['pacienteImagen'].name = str(uuid4()) +"_"+ request.FILES['pacienteImagen'].name
     resultado = self.serializer_class(data=request.data)
     
     if resultado.is_valid():
-      resultado.save()
+      # resultado.save()
       return Response({
         'success':True,
         'content': resultado.data,

@@ -162,7 +162,7 @@ class PacienteModel(models.Model):
   pacienteImagen = models.ImageField(
     # pic = models.ImageField(upload_to='blah', default='path/to/my/default/image.jpg')
     upload_to='pacientes',
-    # default = 'default-image.jpg',
+    default = 'paciente_default.jpg',
     db_column='pac_imagen',
     null=True,
   )

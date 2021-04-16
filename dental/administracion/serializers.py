@@ -34,6 +34,8 @@ class CustomPayloadSerializer(TokenObtainPairSerializer):
   def get_token(cls,user):
     token = super(CustomPayloadSerializer,cls).get_token(user)
     token['personalTipo']=user.personalTipo
+    token['personalCorreo'] = user.personalCorreo
+    
     return token
 
 
