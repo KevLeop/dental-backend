@@ -48,12 +48,11 @@ personalCorreo = models.EmailField(
 ```
   objects = UsuarioManager()
 ````
-  # ahora definimos que columna será la encagada dle login
-  #esto ahce que esa columna sea unica y null=false
+  ### ahora definimos que columna será la encagada del login
 ````
   USERNAME_FIELD = 'personalCorreo'
 ````
-  # para solicitar los campos al momento de crear superusuario por consola`
+  ### para solicitar los campos al momento de crear superusuario por consola
 ````
   REQUIRED_FIELDS = ['personalNombre', 'personalApellido', 'personalTipo']
 
@@ -61,7 +60,9 @@ personalCorreo = models.EmailField(
     db_table='t_personal'
     verbose_name = 'personal'
     verbose_name_plural = 'personales'
-
+`````
+### Modelos de TRATAMIENTOS
+````
 class TratamientoModel(models.Model):
   tratamientoId = models.AutoField(
     primary_key=True,
@@ -102,7 +103,9 @@ class TratamientoModel(models.Model):
     verbose_name='Tratamiento'
     verbose_name_plural = 'Tratamientos'
 
-
+`````
+### Modelos de PACIENTES
+````
 class PacienteModel(models.Model):
   pacienteDni=models.CharField(
     max_length=9,
@@ -177,7 +180,9 @@ class PacienteModel(models.Model):
     verbose_name='Paciente'
     verbose_name_plural = 'Pacientes'
 
-
+`````
+### Modelos de HOJA HISTORIAL CLINICO
+````
 class HClinicaModel(models.Model):
   hclinicaId=models.AutoField(
     primary_key=True,
