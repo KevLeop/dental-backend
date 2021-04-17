@@ -56,11 +56,15 @@ class PacientesController(generics.ListCreateAPIView):
     print("FILLLLES")
     print(request.FILES)
     print(archivo.name)
+    print(request.data)
     request.FILES['pacienteImagen'].name = str(uuid4()) +"_"+ request.FILES['pacienteImagen'].name
     resultado = self.serializer_class(data=request.data)
-    
+    # print(resultado.data)
+   
+
+
     if resultado.is_valid():
-      # resultado.save()
+      resultado.save()
       return Response({
         'success':True,
         'content': resultado.data,
@@ -282,9 +286,10 @@ class HClinicaController(generics.RetrieveUpdateDestroyAPIView):
         'message':"Data incorrecta"
       })
 
-  def delete(self,id):
+  def delete(self,request,id):
     hclinica = self.get_queryset(id)
-    if (hclinica):
+    if hclinica:
+      # respuesta = self.serializer_class(instance=hclinica)
       hclinica.delete()
       return Response({
       'success':True,

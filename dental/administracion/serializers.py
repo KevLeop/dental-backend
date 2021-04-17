@@ -40,8 +40,8 @@ class CustomPayloadSerializer(TokenObtainPairSerializer):
 
 
 
-class PacienteSerializer(serializers.ModelSerializer):
-  def update(self):
+class PacienteSerializer(serializers.ModelSerializer):  
+  def update(self): 
     self.instance.pacienteNombre = self.validated_data.get('pacienteNombre')
     self.instance.pacienteApellido = self.validated_data.get('pacienteApellido')
     self.instance.pacienteFnacimiento = self.validated_data.get('pacienteFnacimiento')
@@ -50,7 +50,9 @@ class PacienteSerializer(serializers.ModelSerializer):
     self.instance.pacienteEmail = self.validated_data.get('pacienteEmail')
     self.instance.pacienteEstado = self.validated_data.get('pacienteEstado')
     self.instance.pacienteGSanguineo = self.validated_data.get('pacienteGSanguineo')
-    self.instance.pacienteImagen = self.validated_data.get('pacienteImagen')
+    # self.instance.pacienteImagen = self.validated_data.get('pacienteImagen')
+    
+    
 
     self.instance.save()
     return self.data

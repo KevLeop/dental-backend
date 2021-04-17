@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'dental.urls'
@@ -87,6 +88,15 @@ DATABASES = {
         'HOST':'127.0.0.1',
         'PORT':'3306'
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'kg602x9qufp9nxba',
+    #     'USER': 'fvaqtop0opopnm66',
+    #     'PASSWORD':'afiysehl4hcmvru2',
+    #     'HOST':'grp6m5lz95d9exiz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    #     'PORT':'3306'
+    # }
+
 }
 
 
@@ -128,6 +138,8 @@ USE_TZ =True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR / 'assets/'
+
 AUTH_USER_MODEL = 'administracion.PersonalModel'
 
 # para indicar donde se guardarán los archivos pasados por el cliente (FileFields, ImageFields)
@@ -136,6 +148,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
 CORS_ALLOW_ALL_ORIGINS=True
+
 
 # PARA MODIFICAR CONFIGURACIONE DE DJANGO REST FRAMEWORK
 REST_FRAMEWORK = {
