@@ -247,7 +247,9 @@ class HClinicaModel(models.Model):
     verbose_name='Historia Clinica'
     verbose_name_plural = 'Historias Clinicas'
 
-
+`````
+### Modelos de CITAS
+````
 class CitaModel(models.Model):
   citaId=models.AutoField(
     primary_key=True,
