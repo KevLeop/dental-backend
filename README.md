@@ -2,6 +2,10 @@
 
 # FINAL-BACKEND-G5-CODIGO
 
+## Integrantes:
+ - Kevin Valverde
+ - Mateo Quispe
+
 ## Proyecto Final de BackEnd - CodiGo - TECSUP
 
 _La aplicación consiste en el una base de datos para el registro de diferentes pacientes según el usuario final quien es el Doctor de la Clínica Dental,
