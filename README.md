@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 # FINAL-BACKEND-G5-CODIGO
 
@@ -552,5 +552,3 @@ class CitaModel(models.Model):
 
   )
 ```
->>>>>>> 67469b978c8cc7307c7d78234e0636712d155fa0
-````
